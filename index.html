@@ -4,6 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>UniSync - Campus Interactive Floor Plans</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#121212">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="apple-touch-icon" href="icon-192.png">
   <style>
     * {
       box-sizing: border-box;
@@ -673,6 +678,13 @@
         })
         .catch(err => console.error(err));
     }
+    if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('Service Worker registered successfully!', reg))
+        .catch(err => console.error('Service Worker registration failed:', err));
+    });
+  }
 
     setInterval(fetchSeatStatus, 1000);
   </script>
